@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <title>Anand Sudhanboina — Blog</title>  
+  
+  <meta name="author" content="Anand Sudhanaboina">
+
+  
+  <meta name="description" content="Anand Sudhanboina (CodeHate) Blog - Things i build, Technology & Engineering.">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://anands.github.io/blog/posts/2/">
+  <link href="/avatar.jpg" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Anand Sudhanaboina" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script>
+(function(i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function() {
+        (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+ga('create', 'UA-64094784-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+    <h1><a href="/">Anand Sudhanaboina</a></h1> 
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+    <li><a href="/">Home</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/07/29/dot-git-is-dangerous/">.git Is Dangerous</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-07-29T11:43:57+05:30'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:43 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Git is fantastic, but it could be dangerous. Let&rsquo;s search for something on Google:</p>
+
+<blockquote><p>“.git” intitle:“Index of”</p></blockquote>
+
+<p>This Google dork will list of all websites which has their .git folders exposed to the web.</p>
+
+<p><img src="/images/ns97gx9AJF1swdta0_400.png" alt="public-dot-git-google" /></p>
+
+<p>Git is not to be blamed here, but the poor server configurations. This may not be alarming to novice devs but we will be able to generate the entire score code using this trick. Let’s see how:</p>
+
+<ol>
+<li>You can download the entire .git directory using wget: <code>wget -r –no-parent http://example.com/.git</code></li>
+<li>Run: git log and copy the recent commit hash:
+<img src="/images/ns98ekm8zk1swdta0_500.png" alt="git-head-commit" /></li>
+<li>And then the final command: <code>git reset –hard &lt;HASH&gt;</code>, in my case: <code>git reset –hard 674d17771ad65bb73f4c6b96644d69d7ff19351b</code> to restore the files</li>
+</ol>
+
+
+<p>Server admins should add adequate config to protect the <code>.git</code> folder, ideally .git should never be part of build / hosted. Apache users can add the below line to your configuration to deny access to .git folder.</p>
+
+<blockquote><p>RewriteRule ^(.*/)?.git+ - [R=404,L]</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/04/01/cdnjs-snippets-for-sublime-text/">Cdnjs Snippets for Sublime Text</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-04-01T11:36:58+05:30'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>11:36 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>[DEPRECATED]</strong></p>
+
+<p><a href="https://cdnjs.com/">cdnjs</a> is a productive CDN for web developers. However, it takes time to visit cdnjs, search for the libray and copy the link.</p>
+
+<p>Instead we can use sublime snippets for all libraries avaliable on cdnjs.com (Total:1103, as of 01-03-2015).</p>
+
+<p>Steps for installation:</p>
+
+<ol>
+<li>Clone the <a href="https://github.com/anands/cdnjs-sublime">cdnjs-sublime</a> repo</li>
+<li>Copy all the snippets from snippets folder to the local sublime snippets folder.</li>
+</ol>
+
+
+<p><img src="/images/cdnjs_sublime.gif" alt="cdnjs-sublime.gif" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/index.html">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/18/serve-static-pages-on-s3-without-html-extension/">Serve Static Pages on S3 Without .html Extension</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/09/16/s3-cname-ssl-with-cloudflare/">S3 CNAME SSL With CloudFlare</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/04/10/launch-random-chrome-instances-faster/">Launch Random Chrome Instances Faster</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/01/07/streamline-log-analysis-and-analytics/">Streamline Log Analysis &amp; Analytics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/11/20/continuous-backup-of-dot-files-using-python-and-dropbox/">Backup of Dot Files Using Python & Dropbox</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/20/network-performance-analysis-using-curl/">Network Performance Analysis Using CURL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/12/01/distributed-log-search-using-gnu-parallel/">Distributed Log Search Using GNU Parallel</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/11/30/reddits-ranking-algorithm/">Reddit's Ranking Algorithm</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - 2020 - Anand Sudhanaboina.  
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'codehatecom';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

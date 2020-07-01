@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Git | Anand Sudhanaboina]]></title>
+  <link href="https://anands.github.io/blog/categories/git/atom.xml" rel="self"/>
+  <link href="https://anands.github.io/"/>
+  <updated>2020-07-01T14:43:52+05:30</updated>
+  <id>https://anands.github.io/</id>
+  <author>
+    <name><![CDATA[Anand Sudhanaboina]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[.git Is Dangerous]]></title>
+    <link href="https://anands.github.io/blog/2015/07/29/dot-git-is-dangerous/"/>
+    <updated>2015-07-29T11:43:57+05:30</updated>
+    <id>https://anands.github.io/blog/2015/07/29/dot-git-is-dangerous</id>
+    <content type="html"><![CDATA[<p>Git is fantastic, but it could be dangerous. Let&rsquo;s search for something on Google:</p>
+
+<blockquote><p>“.git” intitle:“Index of”</p></blockquote>
+
+<p>This Google dork will list of all websites which has their .git folders exposed to the web.</p>
+
+<p><img src="/images/ns97gx9AJF1swdta0_400.png" alt="public-dot-git-google" /></p>
+
+<p>Git is not to be blamed here, but the poor server configurations. This may not be alarming to novice devs but we will be able to generate the entire score code using this trick. Let’s see how:</p>
+
+<ol>
+<li>You can download the entire .git directory using wget: <code>wget -r –no-parent http://example.com/.git</code></li>
+<li>Run: git log and copy the recent commit hash:
+<img src="/images/ns98ekm8zk1swdta0_500.png" alt="git-head-commit" /></li>
+<li>And then the final command: <code>git reset –hard &lt;HASH&gt;</code>, in my case: <code>git reset –hard 674d17771ad65bb73f4c6b96644d69d7ff19351b</code> to restore the files</li>
+</ol>
+
+
+<p>Server admins should add adequate config to protect the <code>.git</code> folder, ideally .git should never be part of build / hosted. Apache users can add the below line to your configuration to deny access to .git folder.</p>
+
+<blockquote><p>RewriteRule ^(.*/)?.git+ - [R=404,L]</p></blockquote>
+]]></content>
+  </entry>
+  
+</feed>

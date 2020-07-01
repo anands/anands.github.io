@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <title>Distributed Log Search Using GNU Parallel - Anand Sudhanaboina</title>
+  
+  <meta name="author" content="Anand Sudhanaboina">
+
+  
+  <meta name="description" content="GNU parallel is a shell tool for executing jobs in parallel using one or more computers. If you have a set of servers to ssh into and run a command &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://anands.github.io/blog/2015/12/01/distributed-log-search-using-gnu-parallel/">
+  <link href="/avatar.jpg" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Anand Sudhanaboina" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script>
+(function(i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function() {
+        (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+ga('create', 'UA-64094784-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+    <h1><a href="/">Anand Sudhanaboina</a></h1> 
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+    <li><a href="/">Home</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Distributed Log Search Using GNU Parallel</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-12-01T12:11:26+05:30'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:11 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://www.gnu.org/software/parallel/">GNU parallel</a> is a shell tool for executing jobs in parallel using one or more computers. If you have a set of servers to ssh into and run a command in parallel, this tool will help you.</p>
+
+<p>Assuming you have an architecture where several cloud instances are behind LB, but doesn&rsquo;t have a centralized logging sync (Logging into a centralized server or service, like Splunk):</p>
+
+<p><img src="/images/N2M0LZD.png" alt="architecture" /></p>
+
+<p>If you need to search the log files across all the servers with one command, GNU Parallel comes very handy saving a lot of time. Here’s how it works:</p>
+
+<ol>
+<li><p>Install GNU Parallel. (Below command for Ubuntu)</p>
+
+<blockquote><p>sudo apt-get install parallel</p></blockquote></li>
+<li><p>Run the tool:</p>
+
+<blockquote><p>echo &ldquo;command&rdquo; | parallel &ndash;onall &ndash;slf servers.txt</p></blockquote></li>
+</ol>
+
+
+<p>A few other way to run the command:</p>
+
+<ul>
+<li>echo “fgrep -Rl <MyQuery> /var/log/” | parallel –onall –slf servers.txt</li>
+<li>echo “grep <MyQuery> ~/log.txt” | parallel –onall –slf servers.txt</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Anand Sudhanaboina</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-12-01T12:11:26+05:30'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:11 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/shell/'>shell</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/11/30/reddits-ranking-algorithm/" title="Previous Post: Reddit's Ranking Algorithm">&laquo; Reddit's Ranking Algorithm</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/01/20/network-performance-analysis-using-curl/" title="Next Post: Network Performance Analysis Using CURL">Network Performance Analysis Using CURL &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/18/serve-static-pages-on-s3-without-html-extension/">Serve Static Pages on S3 Without .html Extension</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/09/16/s3-cname-ssl-with-cloudflare/">S3 CNAME SSL With CloudFlare</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/04/10/launch-random-chrome-instances-faster/">Launch Random Chrome Instances Faster</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/01/07/streamline-log-analysis-and-analytics/">Streamline Log Analysis &amp; Analytics</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/11/20/continuous-backup-of-dot-files-using-python-and-dropbox/">Backup of Dot Files Using Python & Dropbox</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/20/network-performance-analysis-using-curl/">Network Performance Analysis Using CURL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/12/01/distributed-log-search-using-gnu-parallel/">Distributed Log Search Using GNU Parallel</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/11/30/reddits-ranking-algorithm/">Reddit's Ranking Algorithm</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - 2020 - Anand Sudhanaboina.  
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'codehatecom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://anands.github.io/blog/2015/12/01/distributed-log-search-using-gnu-parallel/';
+        var disqus_url = 'https://anands.github.io/blog/2015/12/01/distributed-log-search-using-gnu-parallel/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Networking | Anand Sudhanaboina]]></title>
+  <link href="https://anands.github.io/blog/categories/networking/atom.xml" rel="self"/>
+  <link href="https://anands.github.io/"/>
+  <updated>2020-07-01T14:43:52+05:30</updated>
+  <id>https://anands.github.io/</id>
+  <author>
+    <name><![CDATA[Anand Sudhanaboina]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Network Performance Analysis Using CURL]]></title>
+    <link href="https://anands.github.io/blog/2016/01/20/network-performance-analysis-using-curl/"/>
+    <updated>2016-01-20T13:27:44+05:30</updated>
+    <id>https://anands.github.io/blog/2016/01/20/network-performance-analysis-using-curl</id>
+    <content type="html"><![CDATA[<p><code>curl</code> can be handy tool to perform network analysis.</p>
+
+<pre><code class="sh">curl -o /dev/null  -s -w "%{time_total}" http://anands.github.io
+</code></pre>
+
+<p>This will print the total time in seconds that the full operation lasted.</p>
+
+<p>Used flags in this command:</p>
+
+<ol>
+<li><p><code>-o</code>: This is used to write output to specified destination, as we are focused on just performance we are writing to <code>/dev/null</code> so the stdout of curl will be ignored.</p></li>
+<li><p><code>-s</code>: Meant for silent, this will skip the debug table (in which you can see some stats as well).</p></li>
+<li><p><code>-w</code>: This commad defines what to display on stdout after a completed and successful operation. The desired output can be formatted using file or in-inline.</p></li>
+</ol>
+
+
+<p>You can see entire curl doc (supported variables, etc) for <code>-w</code> flag <a href="/gist/curl-w-flag-doc/">here</a></p>
+
+<h3>Custom formatting:</h3>
+
+<p>We can feed in the desired format using a file or in-inline, in-inline examples:</p>
+
+<pre><code class="sh">curl -o /dev/null  -s -w "%{time_total}" http://anands.github.io
+curl -o /dev/null  -s -w "Total Time: %{time_total}\nDownload Speed: %{speed_download}" http://anands.github.io
+</code></pre>
+
+<p>To read from a particular file you need to specify it  as &ldquo;@filename&rdquo;, example:</p>
+
+<pre><code class="sh">curl -w "@format.txt" -o /dev/null -s http://anands.github.io/
+</code></pre>
+
+<p>I used this to log the info in json format, and here&rsquo;s how my <code>format.txt</code> looks like:</p>
+
+<pre><code class="json">{
+    "http_code" : "%{http_code}",
+    "num_connects" : "%{num_connects}",
+    "remote_ip" : "%{remote_ip}",
+    "remote_port" : "%{remote_port}",
+    "size_download" : "%{size_download}",
+    "size_header" : "%{size_header}",
+    "time_connect" : "%{time_connect}",
+    "time_pretransfer" : "%{time_pretransfer}",
+    "time_starttransfer" : "%{time_starttransfer}",
+    "time_total" : "%{time_total}"
+}
+</code></pre>
+
+<p>Sample output:</p>
+
+<pre><code>curl -w "@format.json" -o /dev/null -s http://anands.github.io/ | python -m json.tool
+{
+    "http_code": "200",
+    "num_connects": "1",
+    "remote_ip": "192.30.252.154",
+    "remote_port": "80",
+    "size_download": "7876",
+    "size_header": "358",
+    "time_connect": "0.032",
+    "time_pretransfer": "0.032",
+    "time_starttransfer": "1.113",
+    "time_total": "1.119"
+}
+</code></pre>
+
+<p>For constant monitoring, create a cron job which runs this command every minute and push data to desired systems.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Shell | Anand Sudhanaboina]]></title>
+  <link href="https://anands.github.io/blog/categories/shell/atom.xml" rel="self"/>
+  <link href="https://anands.github.io/"/>
+  <updated>2020-07-01T14:43:52+05:30</updated>
+  <id>https://anands.github.io/</id>
+  <author>
+    <name><![CDATA[Anand Sudhanaboina]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Distributed Log Search Using GNU Parallel]]></title>
+    <link href="https://anands.github.io/blog/2015/12/01/distributed-log-search-using-gnu-parallel/"/>
+    <updated>2015-12-01T12:11:26+05:30</updated>
+    <id>https://anands.github.io/blog/2015/12/01/distributed-log-search-using-gnu-parallel</id>
+    <content type="html"><![CDATA[<p><a href="http://www.gnu.org/software/parallel/">GNU parallel</a> is a shell tool for executing jobs in parallel using one or more computers. If you have a set of servers to ssh into and run a command in parallel, this tool will help you.</p>
+
+<p>Assuming you have an architecture where several cloud instances are behind LB, but doesn&rsquo;t have a centralized logging sync (Logging into a centralized server or service, like Splunk):</p>
+
+<p><img src="/images/N2M0LZD.png" alt="architecture" /></p>
+
+<p>If you need to search the log files across all the servers with one command, GNU Parallel comes very handy saving a lot of time. Here’s how it works:</p>
+
+<ol>
+<li><p>Install GNU Parallel. (Below command for Ubuntu)</p>
+
+<blockquote><p>sudo apt-get install parallel</p></blockquote></li>
+<li><p>Run the tool:</p>
+
+<blockquote><p>echo &ldquo;command&rdquo; | parallel &ndash;onall &ndash;slf servers.txt</p></blockquote></li>
+</ol>
+
+
+<p>A few other way to run the command:</p>
+
+<ul>
+<li>echo “fgrep -Rl <MyQuery> /var/log/” | parallel –onall –slf servers.txt</li>
+<li>echo “grep <MyQuery> ~/log.txt” | parallel –onall –slf servers.txt</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
